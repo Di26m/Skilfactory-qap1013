@@ -1,5 +1,5 @@
 import time
-
+from selenium.webdriver.common.by import By
 
 def test_search_example(selenium):
     """ Search some phrase in google and make a screenshot of the page. """
@@ -10,17 +10,17 @@ def test_search_example(selenium):
     time.sleep(5)  # just for demo purposes, do NOT repeat it on real projects!
 
     # Find the field for search text input:
-    search_input = selenium.find_element_by_name('q')
+    search_input = selenium.find_element(By.NAME, 'q')
 
 
     # Enter the text for search:
     search_input.clear()
-    search_input.send_keys('first test')
+    search_input.send_keys('Русские символы в пути тестов pycharm')
 
     time.sleep(5)  # just for demo purposes, do NOT repeat it on real projects!
 
     # Click Search:
-    search_button = selenium.find_element_by_name('btnK')
+    search_button = selenium.find_element(By.NAME, 'btnK')
     search_button.submit()
 
     time.sleep(5)  # just for demo purposes, do NOT repeat it on real projects!
