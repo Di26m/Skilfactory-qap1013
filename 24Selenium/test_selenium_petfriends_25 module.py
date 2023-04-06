@@ -124,19 +124,19 @@ def test_pets_have_name_age_and_gender(show_my_pets): #3. У всех питом
       result = len(split_data_pet)
       assert result == 3
 
-def test_all_pets_have_different_names(show_my_pets): # 3. У всех питомцев разные имена
+def test_all_pets_have_different_names(show_my_pets): # 4. У всех питомцев разные имена
 
 
    element = WebDriverWait(pytest.driver, 10).until(
       EC.presence_of_element_located((By.CSS_SELECTOR, ".table.table-hover tbody tr")))
    # Сохраняем в переменную pet_data элементы с данными о питомцах
-   pet_data = pytest.driver.find_elements(By.CSS_SELECTOR,'.table.table-hover tbody tr')
-
+   data = pytest.driver.find_elements(By.CSS_SELECTOR,'.table.table-hover tbody tr')
+   pet_data = data[:3]
    # Перебираем данные из pet_data, оставляем имя, возраст, и породу остальное меняем на пустую строку
    # и разделяем по пробелу.Выбераем имена и добавляем их в список pets_name.
    pets_name = []
    for i in range(len(pet_data)):
-      data_pet = pet_data[i].text.replace('\n', '').replace('×', '')
+      data_pet = pet_data[i].text.replace('\n', '')
       split_data_pet = data_pet.split(' ')
       pets_name.append(split_data_pet[0])
 
@@ -151,20 +151,20 @@ def test_all_pets_have_different_names(show_my_pets): # 3. У всех пито�
    print(pets_name)
 
 
-def test_no_duplicate_pets(show_my_pets):  # 5. В списке нет повторяющихся питомцев. (Сложное задание).
+def test_no_copies_pets(show_my_pets):  # 5. В списке нет повторяющихся питомцев. (Сложное задание).
 
    # Устанавливаем явное ожидание
    element = WebDriverWait(pytest.driver, 10).until(
       EC.presence_of_element_located((By.CSS_SELECTOR, ".table.table-hover tbody tr")))
 
    # Сохраняем в переменную pet_data элементы с данными о питомцах
-   pet_data = pytest.driver.find_elements(By.CSS_SELECTOR,'.table.table-hover tbody tr')
-
+   data = pytest.driver.find_elements(By.CSS_SELECTOR,'.table.table-hover tbody tr')
+   pet_data = data[:3]
    # Перебираем данные из pet_data, оставляем имя, возраст, и породу остальное меняем на пустую строку
    # и разделяем по пробелу.
    list_data = []
    for i in range(len(pet_data)):
-      data_pet = pet_data[i].text.replace('\n', '').replace('×', '')
+      data_pet = pet_data[i].text.replace('\n', '')
       split_data_pet = data_pet.split(' ')
       list_data.append(split_data_pet)
 
@@ -190,3 +190,4 @@ def test_no_duplicate_pets(show_my_pets):  # 5. В списке нет повт�
 
    # Если количество элементов == 0 значит карточки с одинаковыми данными отсутствуют
    assert result == 0
+
